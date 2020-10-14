@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Nov 22 18:12:26 2018
@@ -21,7 +22,7 @@ from sklearn.preprocessing import scale
 
 #read configuration file
 conf = configparser.ConfigParser()
-conf.read(os.path.dirname(os.getcwd())+'/configurations/configurations.ini')
+conf.read(os.path.dirname(os.getcwd())+r'/configurations/configurations.ini')
 
 
 
@@ -192,6 +193,7 @@ def item_recommendation(predictions_df, userID, item_df, original_ratings_df, nu
 
     # Get the user's data and merge in the challenges information.
     user_data = original_ratings_df[original_ratings_df.userID == (userID)]
+    user_data.reset_index(drop=True,inplace=True)
     user_full = (user_data.merge(item_df, how ='left', left_on ='companyID', right_on ='companyID').
                      sort_values(['sum'], ascending=False))
 
@@ -212,7 +214,6 @@ def item_recommendation(predictions_df, userID, item_df, original_ratings_df, nu
 filename = conf.get("INPUT_FILES",conf.get("INPUT_FILES","input"))
 challenge = pd.read_csv(os.path.dirname(os.getcwd()) + conf.get("INPUT_FILES", "challenge"), delimiter=';')
 lookup_ch= challenge.loc[:, ['companyID', 'name']].drop_duplicates()
-
 ch_agg= challenge.groupby(['userID', 'companyID']).agg({'matchesDone': [sum]})
 ch_agg.columns = ch_agg.columns.droplevel(level=0)
 ch_agg['index1'] = ch_agg.index

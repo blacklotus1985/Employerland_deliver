@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Recommendation engine.iml" filepath="$PROJECT_DIR$/.idea/Recommendation engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../corsi/permagroup/Foundation/4. Classifier/classifiers/.idea/classifiers.iml" filepath="$PROJECT_DIR$/../../../corsi/permagroup/Foundation/4. Classifier/classifiers/.idea/classifiers.iml" />
     </modules>
   </component>
 </project>

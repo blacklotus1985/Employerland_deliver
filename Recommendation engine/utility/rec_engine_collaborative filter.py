@@ -136,23 +136,23 @@ def threshold_descriptions(df,matrix, conf, threshold=0.5,filename="default",sav
     return threshhold_list,df_threshold
 
 def get_recommendations(title, cosine_sim):
-    # Get the index of the movie that matches the title
+    # Get the index of the job that matches the position
     idx = indices[title]
 
-    # Get the pairwsie similarity scores of all movies with that movie
+    # Get the pairwsie similarity scores of all jobs with that job
     sim_scores = list(enumerate(cosine_sim[idx]))
 
-    # Sort the movies based on the similarity scores
+    # Sort the jobs based on the similarity scores
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # Get the scores of the 10 most similar movies
+    # Get the scores of the 10 most similar jobs
     sim_scores = sim_scores[1:11]
 
-    # Get the movie indices
-    movie_indices = [i[0] for i in sim_scores]
+    # Get the job indices
+    job_indices = [i[0] for i in sim_scores]
 
-    # Return the top 10 most similar movies
-    return df['title'].iloc[movie_indices]
+    # Return the top 10 most similar jobs
+    return df['title'].iloc[job_indices]
 
 # clean descriptions from italian stopwords
 df = clean_stop_words(df=df, column="description", lang = "italian",stem=True)
@@ -184,18 +184,13 @@ description_index_list = top_desciptions(cosine_sim)
 # loops all the description and gets indexes of all the descriptions that are within a threshold of similarity.
 threshhold_list,df_threshold = threshold_descriptions(df=df,matrix=cosine_sim,conf=conf,threshold=0.3,filename="threshold_descriptions.csv")
 
-
 # drop duplicates from column
 indices = pd.Series(df.index, index=df['title']).drop_duplicates()
 
-
-
-
-
-
-
-# get recommendations for given title
+# get recommendations for given job
 indices_final = get_recommendations('Neolaureati in Ingegneria Informatica/Informatica',cosine_sim=cosine_sim)
+
+print(1)
 
 
 
